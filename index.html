@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velocita Bikes | Catálogo Oficial</title>
+    <title>Bicisportjc | Catálogo Oficial</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            500: '#f97316', // Vibrant Orange Accent for Bikes
-                            600: '#ea580c',
-                            700: '#c2410c',
-                        },
-                        whatsapp: {
-                            500: '#25D366',
-                            600: '#128C7E',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#fbbf24', // Amarillo cálido para la marca y acentos
+              orange: '#f97316', // Naranja deportivo para botones
+              'orange-hover': '#ea580c',
+            },
+            dark: {
+              bg: '#090d16',   // Azul oscuro profundo de fondo
+              card: '#111827', // Azul noche para las tarjetas
+            },
+            whatsapp: {
+              500: '#25D366',
+              600: '#128C7E',
             }
+          }
         }
+      }
+    }
     </script>
     <!-- Font Awesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -93,7 +92,7 @@
                     </div>
                     <div>
                         <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-500">
-                            VELOCITA
+                            Bicisportjc
                         </span>
                         <span class="block text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Premium Bike Store</span>
                     </div>
