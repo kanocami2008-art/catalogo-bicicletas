@@ -3,53 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TITULO DE LA PÁGINA (Pestaña del navegador) -->
     <title>Bicisportjc | Catálogo Oficial</title>
-    <!-- Tailwind CSS CDN -->
+
+    <!-- Tailwind CSS CDN (Framework para estilos rápidos) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CONFIGURACIÓN DE COLORES Y TEMA EN TAILWIND -->
     <script>
-        <script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        colors: {
-          // Reasignamos las clases 'brand' para que los botones y detalles recuperen su color
-          brand: {
-            50: '#fffbe3',
-            100: '#fef3c7',
-            400: '#fbbf24', // Amarillo cálido para íconos/detalles
-            500: '#f97316', // Naranja principal para botones
-            600: '#ea580c', // Naranja oscuro al pasar el mouse
-            700: '#c2410c',
-          },
-          whatsapp: {
-            500: '#25D366',
-            600: '#128C7E',
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              // Paleta de colores de la marca
+              brand: {
+                50: '#fffbe3',
+                100: '#fef3c7',
+                400: '#fbbf24', // Amarillo cálido para detalles y acentos
+                500: '#f97316', // Naranja principal para botones
+                600: '#ea580c', // Naranja oscuro al pasar el mouse
+                700: '#c2410c',
+              },
+              // Verde oficial de WhatsApp
+              whatsapp: {
+                500: '#25D366',
+                600: '#128C7E',
+              }
+            }
           }
         }
       }
-    }
-  }
-</script>
     </script>
-    <!-- Font Awesome Icons CDN -->
+
+    <!-- Font Awesome Icons (Íconos de bicicletas, lupa, whatsapp, etc.) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ESTILOS PERSONALIZADOS (CSS) -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0b0f19;
+            background-color: #090d16; /* Fondo Azul Oscuro Elegante */
             color: #f3f4f6;
         }
 
-        /* Custom Scrollbars */
+        /* Personalización de la barra de desplazamiento (Scrollbar) */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0b0f19;
+            background: #090d16;
         }
         ::-webkit-scrollbar-thumb {
             background: #1f293d;
@@ -59,15 +65,15 @@
             background: #374151;
         }
 
-        /* Glassmorphism Styles */
+        /* Efecto Cristal (Glassmorphism) para tarjetas y barra de navegación */
         .glass-card {
-            background: rgba(17, 24, 39, 0.75);
+            background: rgba(17, 24, 39, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .glass-nav {
-            background: rgba(11, 15, 25, 0.85);
+            background: rgba(9, 13, 22, 0.90);
             backdrop-filter: blur(16px);
         }
 
@@ -75,32 +81,37 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Animación al pasar el mouse sobre la foto de la bicicleta */
         .bike-card:hover .bike-image {
             transform: scale(1.06);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-slate-950 text-slate-100">
+<body class="min-h-screen flex flex-col antialiased text-slate-100">
 
-    <!-- Sticky Navigation Bar -->
+    <!-- ==========================================
+         BARRA DE NAVEGACIÓN SUPERIOR (HEADER)
+         ========================================== -->
     <header class="sticky top-0 z-40 glass-nav border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 
-                <!-- Brand Logo -->
+                <!-- Logo e Identidad de la Marca -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
-                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-brand-600/30">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-500 to-brand-400 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/30">
                         <i class="fa-solid fa-person-biking text-2xl"></i>
                     </div>
                     <div>
-                        <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-500">
+                        <!-- NOMBRE PRINCIPAL DE TU MARCA -->
+                        <span class="text-xl font-extrabold tracking-tight text-white block">
                             Bicisportjc
                         </span>
-                        <span class="block text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Premium Bike Store</span>
+                        <!-- ESLOGAN O SUBTÍTULO -->
+                        <span class="block text-[10px] text-brand-400 font-bold tracking-widest uppercase">PREMIUM BIKE STORE</span>
                     </div>
                 </div>
 
-                <!-- Desktop Search Bar -->
+                <!-- Buscador Principal (Vista en Computadoras) -->
                 <div class="hidden md:flex flex-1 max-w-md mx-8">
                     <div class="relative w-full">
                         <input type="text" id="search-input" onkeyup="filterBikes()" placeholder="Buscar por modelo, marca o estilo..." 
@@ -109,7 +120,7 @@
                     </div>
                 </div>
 
-                <!-- WhatsApp General Contact Action -->
+                <!-- Botón de Atención Directa por WhatsApp en el Header -->
                 <div class="flex items-center space-x-4">
                     <button onclick="contactGeneralWhatsApp()" class="hidden sm:flex items-center space-x-2 px-4 py-2.5 rounded-full bg-whatsapp-500/10 hover:bg-whatsapp-500 text-whatsapp-500 hover:text-slate-950 border border-whatsapp-500/30 text-xs font-bold transition-all duration-300">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -118,7 +129,7 @@
                 </div>
             </div>
 
-            <!-- Mobile Search Bar -->
+            <!-- Buscador Secundario (Vista en Celulares) -->
             <div class="pb-4 md:hidden">
                 <div class="relative w-full">
                     <input type="text" id="search-input-mobile" onkeyup="syncMobileSearch()" placeholder="Buscar bicicleta..." 
@@ -129,12 +140,15 @@
         </div>
     </header>
 
-    <!-- Hero Banner Section -->
+    <!-- ==========================================
+         SECCIÓN HERO (BANNER PRINCIPAL DE BIENVENIDA)
+         ========================================== -->
     <section class="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-b border-slate-800/60 overflow-hidden">
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center opacity-15"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
             <div class="max-w-2xl space-y-4">
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-bold uppercase tracking-wider">
+                <!-- Insignia Destacada -->
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-400/10 border border-brand-400/30 text-brand-400 text-xs font-bold uppercase tracking-wider">
                     <i class="fa-solid fa-bolt text-xs"></i> Modelos 2026 Disponibles
                 </span>
                 <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
@@ -144,7 +158,7 @@
                     Explora nuestro catálogo exclusivo de bicicletas de Montaña, Ruta, Urbanas y Eléctricas. Consulta la disponibilidad o pide información directamente por WhatsApp con un solo clic.
                 </p>
                 <div class="pt-2 flex flex-wrap gap-4">
-                    <a href="#catalog-section" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm transition-all shadow-lg shadow-brand-600/30 flex items-center gap-2">
+                    <a href="#catalog-section" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-brand-500/20 flex items-center gap-2">
                         <span>Ver Catálogo</span>
                         <i class="fa-solid fa-arrow-down text-xs"></i>
                     </a>
@@ -153,20 +167,19 @@
         </div>
     </section>
 
-    <!-- Main Content & Catalog Section -->
+    <!-- ==========================================
+         CONTENEDOR PRINCIPAL Y CATÁLOGO
+         ========================================== -->
     <main id="catalog-section" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         
-        <!-- Filters & Sorting Controls Bar -->
+        <!-- Barra de Filtros por Categoría y Ordenamiento -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800/80">
             
-            <!-- Category Pills -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar" id="category-pills">
-                <!-- Dynamic Category Buttons generated by JS -->
-            </div>
+            <!-- Botones de Categorías (Se generan dinámicamente desde JS) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar" id="category-pills"></div>
 
-            <!-- Sorting & Grid Toggles -->
+            <!-- Menú Desplegable para Ordenar Precios -->
             <div class="flex items-center justify-between lg:justify-end gap-4 border-t lg:border-t-0 border-slate-800 pt-3 lg:pt-0">
-                <!-- Sorting Dropdown -->
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-slate-400 font-medium">Ordenar:</span>
                     <select id="sort-select" onchange="filterBikes()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
@@ -179,68 +192,72 @@
             </div>
         </div>
 
-        <!-- Bikes Display Grid -->
-        <div id="bikes-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Dynamic Bike Cards Rendered via JS -->
-        </div>
+        <!-- REJILLA DONDE SE MUESTRAN LAS BICICLETAS -->
+        <div id="bikes-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
-        <!-- Empty State Message -->
+        <!-- Mensaje de Estado Vacío (Si no hay búsquedas coincidentes) -->
         <div id="empty-state" class="hidden text-center py-20 space-y-4">
             <div class="w-16 h-16 mx-auto rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
                 <i class="fa-solid fa-bicycle text-2xl"></i>
             </div>
             <h3 class="text-lg font-bold text-slate-200">No encontramos resultados</h3>
             <p class="text-sm text-slate-400 max-w-sm mx-auto">Intenta cambiar las palabras de búsqueda o selecciona otra categoría.</p>
-            <button onclick="resetFilters()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-brand-500 rounded-xl text-xs font-bold transition-all">
+            <button onclick="resetFilters()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-brand-400 rounded-xl text-xs font-bold transition-all">
                 Restablecer Filtros
             </button>
         </div>
     </main>
 
-    <!-- Detailed Technical QuickView Modal -->
+    <!-- ==========================================
+         VENTANA MODAL (FICHA TÉCNICA DETALLADA)
+         ========================================== -->
     <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
-        <!-- Backdrop -->
+        <!-- Fondo Oscuro Translúcido -->
         <div onclick="closeQuickView()" class="absolute inset-0 bg-slate-950/85 modal-blur"></div>
         
-        <!-- Modal Card Container -->
+        <!-- Tarjeta Flotante del Modal -->
         <div class="relative bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-300 pointer-events-auto z-10 max-h-[90vh] overflow-y-auto">
-            <!-- Close Button -->
+            <!-- Botón de Cierre (X) -->
             <button onclick="closeQuickView()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-all">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <!-- Dynamic Modal Content injected by JS -->
+            <!-- Contenido Inyectado por JS -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="quickview-content"></div>
         </div>
     </div>
 
-    <!-- Footer Section -->
+    <!-- ==========================================
+         PIE DE PÁGINA (FOOTER)
+         ========================================== -->
     <footer class="bg-slate-950 border-t border-slate-900 py-10 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 space-y-3">
             <div class="flex items-center justify-center space-x-2 text-slate-400 font-bold">
-                <i class="fa-solid fa-person-biking text-brand-500"></i>
+                <i class="fa-solid fa-person-biking text-brand-400"></i>
                 <span>Bicisportjc</span>
             </div>
             <p>© 2026 Todos los derechos reservados. Catálogo interactivo de bicicletas.</p>
         </div>
     </footer>
 
+    <!-- ==========================================
+         LÓGICA EN JAVASCRIPT (SISTEMA DE LA TIENDA)
+         ========================================== -->
     <script>
         /************************************************************************
-         * 1. CONFIGURACIÓN DEL NEGOCIO (FÁCIL DE EDITAR EN GITHUB)
+         * 1. CONFIGURACIÓN GENERAL DEL NEGOCIO
          * 
-         * Simplemente cambia el número a continuación por tu número real de WhatsApp.
-         * Incluye el código del país sin el signo "+".
-         * Ejemplo para Colombia: "573001234567"
-         * Ejemplo para México:   "521551234567"
-         * Ejemplo para España:   "34600000000"
+         * Aquí defines el número oficial de WhatsApp. 
+         * Formato requerido: Código de país + Número sin espacios ni símbolos "+".
+         * Ejemplo Colombia: "573172595506"
          ************************************************************************/
-        const WHATSAPP_NUMBER = "3172595506";
+        const WHATSAPP_NUMBER = "573172595506";
 
         /************************************************************************
-         * 2. BASE DE DATOS DE BICICLETAS (FÁCIL DE EDITAR/AGREGAR PRODUCTOS)
+         * 2. BASE DE DATOS DE PRODUCTOS (EDITABLE)
          * 
-         * Puedes agregar más bicicletas copiando un bloque entero entre llaves { ... }
+         * Para agregar una bicicleta nueva, copia desde la llave { hasta la llave }
+         * con sus comas respectivas.
          ************************************************************************/
         const BIKES_DATABASE = [
             {
@@ -341,15 +358,18 @@
             }
         ];
 
-        // Global State Variables
+        /************************************************************************
+         * 3. ESTADO Y FUNCIONES OPERATIVAS
+         ************************************************************************/
         let currentCategory = 'Todos';
 
-        // Initialize application on window load
+        // Inicializar la aplicación cuando cargue la página
         window.addEventListener('DOMContentLoaded', () => {
             renderCategoryPills();
             filterBikes();
         });
 
+        // Renderizar botones de filtro de categorías
         function renderCategoryPills() {
             const categories = ['Todos', 'Montaña', 'Ruta', 'Urbana', 'Eléctrica'];
             const container = document.getElementById('category-pills');
@@ -358,7 +378,7 @@
                 <button onclick="setCategory('${cat}')" 
                     class="px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 ${
                         currentCategory === cat 
-                        ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' 
+                        ? 'bg-brand-500 text-slate-950 shadow-lg shadow-brand-500/20' 
                         : 'bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/50'
                     }">
                     ${cat}
@@ -366,14 +386,16 @@
             `).join('');
         }
 
+        // Seleccionar categoría activa
         function setCategory(cat) {
             currentCategory = cat;
             renderCategoryPills();
             filterBikes();
         }
 
+        // Filtrar y ordenar bicicletas
         function filterBikes() {
-            const searchQuery = (document.getElementById('search-input').value || document.getElementById('search-input-mobile').value || '').toLowerCase();
+            const searchQuery = (document.getElementById('search-input').value || document.getElementById('search-input-mobile').value || '').toLowerCase().trim();
             const sortBy = document.getElementById('sort-select').value;
 
             let filtered = BIKES_DATABASE.filter(bike => {
@@ -384,7 +406,7 @@
                 return matchesCategory && matchesSearch;
             });
 
-            // Sorting logic
+            // Criterios de ordenamiento
             if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
             if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
             if (sortBy === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -392,6 +414,7 @@
             renderBikes(filtered);
         }
 
+        // Renderizar las tarjetas de bicicletas en el HTML
         function renderBikes(items) {
             const container = document.getElementById('bikes-container');
             const emptyState = document.getElementById('empty-state');
@@ -406,52 +429,51 @@
             container.innerHTML = items.map(bike => `
                 <div class="bike-card glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-brand-500/40 hover:shadow-xl hover:shadow-brand-500/5">
                     
-                    <!-- Bike Image Header -->
-                    <div class="relative overflow-hidden aspect-[4/3] bg-slate-900">
+                    <!-- Imagen de la Bicicleta -->
+                    <div class="relative overflow-hidden aspect-[4/3] bg-slate-950">
                         <img src="${bike.image}" alt="${bike.name}" class="bike-image w-full h-full object-cover transition-transform duration-500">
                         
                         ${bike.badge ? `
-                            <span class="absolute top-3.5 left-3.5 bg-brand-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider shadow-md">
+                            <span class="absolute top-3.5 left-3.5 bg-brand-500 text-slate-950 text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider shadow-md">
                                 ${bike.badge}
                             </span>
                         ` : ''}
 
-                        <!-- Quick View Eye Button -->
-                        <button onclick="openQuickView('${bike.id}')" title="Ver Ficha Técnica" class="absolute bottom-3.5 right-3.5 w-10 h-10 rounded-full bg-slate-950/80 text-white opacity-90 sm:opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-600 flex items-center justify-center">
+                        <!-- Botón de Ojo (Vista Rápida) -->
+                        <button onclick="openQuickView('${bike.id}')" title="Ver Ficha Técnica" class="absolute bottom-3.5 right-3.5 w-10 h-10 rounded-full bg-slate-950/80 text-white opacity-90 sm:opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-500 hover:text-slate-950 flex items-center justify-center">
                             <i class="fa-solid fa-eye text-sm"></i>
                         </button>
                     </div>
 
-                    <!-- Bike Info Body -->
+                    <!-- Datos de la Bicicleta -->
                     <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="text-[10px] uppercase font-bold text-brand-500 tracking-wider">${bike.category}</span>
+                                <span class="text-[10px] uppercase font-bold text-brand-400 tracking-wider">${bike.category}</span>
                             </div>
                             <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors line-clamp-1">${bike.name}</h3>
                             <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${bike.description}</p>
                         </div>
 
-                        <!-- Highlights Specs -->
+                        <!-- Resumen Técnico -->
                         <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-[11px] text-slate-300">
                             <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-layer-group text-brand-500 w-4"></i>
+                                <i class="fa-solid fa-layer-group text-brand-400 w-4"></i>
                                 <span class="truncate"><strong>Marco:</strong> ${bike.specs.frame}</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-gear text-brand-500 w-4"></i>
+                                <i class="fa-solid fa-gear text-brand-400 w-4"></i>
                                 <span class="truncate"><strong>Cambios:</strong> ${bike.specs.gears}</span>
                             </div>
                         </div>
 
-                        <!-- Price and WhatsApp Direct Action -->
+                        <!-- Precio y Botón de WhatsApp -->
                         <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-3">
                             <div>
                                 <span class="text-[10px] text-slate-400 block font-medium">Precio estimado</span>
                                 <span class="text-lg font-black font-mono text-white">$${bike.price.toFixed(2)}</span>
                             </div>
 
-                            <!-- WhatsApp Contact Button -->
                             <button onclick="contactWhatsApp('${bike.name}')" class="px-4 py-2.5 bg-whatsapp-500 hover:bg-whatsapp-600 text-slate-950 hover:text-white rounded-xl text-xs font-bold transition-all duration-300 flex items-center gap-2 shadow-lg shadow-whatsapp-500/20">
                                 <i class="fa-brands fa-whatsapp text-base"></i>
                                 <span>Consultar</span>
@@ -462,6 +484,7 @@
             `).join('');
         }
 
+        // Abrir Modal de Ficha Técnica
         function openQuickView(bikeId) {
             const bike = BIKES_DATABASE.find(b => b.id === bikeId);
             if (!bike) return;
@@ -474,7 +497,7 @@
                     <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
                         <img src="${bike.image}" alt="${bike.name}" class="w-full h-full object-cover">
                     </div>
-                    <span class="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-500 text-xs font-bold uppercase tracking-wider">
+                    <span class="inline-block px-3 py-1 rounded-full bg-brand-400/10 text-brand-400 text-xs font-bold uppercase tracking-wider">
                         Bicicleta de ${bike.category}
                     </span>
                 </div>
@@ -482,11 +505,11 @@
                 <div class="flex flex-col justify-between space-y-6">
                     <div>
                         <h2 class="text-xl sm:text-2xl font-black text-white">${bike.name}</h2>
-                        <p class="text-2xl font-black font-mono text-brand-500 mt-2">$${bike.price.toFixed(2)} USD</p>
+                        <p class="text-2xl font-black font-mono text-brand-400 mt-2">$${bike.price.toFixed(2)} USD</p>
                         <p class="text-xs text-slate-300 mt-3 leading-relaxed">${bike.description}</p>
                     </div>
 
-                    <!-- Detailed Technical Specifications Sheet -->
+                    <!-- Ficha Técnica Completa -->
                     <div class="space-y-2.5">
                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Ficha Técnica Destacada</h4>
                         <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
@@ -513,7 +536,6 @@
                         </div>
                     </div>
 
-                    <!-- Direct Action inside Modal -->
                     <button onclick="contactWhatsApp('${bike.name}')" class="w-full py-3.5 bg-whatsapp-500 hover:bg-whatsapp-600 text-slate-950 hover:text-white font-bold rounded-xl text-sm transition-all duration-300 shadow-lg shadow-whatsapp-500/20 flex items-center justify-center space-x-2">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         <span>Pedir Información en WhatsApp</span>
@@ -525,39 +547,43 @@
             modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
         }
 
+        // Cerrar Modal
         function closeQuickView() {
             const modal = document.getElementById('quickview-modal');
             modal.classList.add('opacity-0', 'pointer-events-none');
             modal.querySelector('.transform').classList.replace('scale-100', 'scale-95');
         }
 
-        /**
-         * Generates WhatsApp link with pre-filled message about a specific bike.
-         */
+        /************************************************************************
+         * 4. FUNCIONES DE ENLACE DIRECTO A WHATSAPP
+         ************************************************************************/
+        
+        // Enviar mensaje de consulta sobre una bicicleta específica
         function contactWhatsApp(bikeName) {
-            const message = `¡Hola! Estoy interesado en obtener más información y consultar disponibilidad sobre la bicicleta *${bikeName}*.`;
+            const cleanNumber = WHATSAPP_NUMBER.replace(/\D/g, ''); // Elimina espacios o caracteres extraños
+            const message = `¡Hola *Bicisportjc*! Estoy interesado en obtener más información y consultar disponibilidad sobre la bicicleta: *${bikeName}*.`;
             const encodedMessage = encodeURIComponent(message);
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            const url = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
             window.open(url, '_blank');
         }
 
-        /**
-         * Generates general WhatsApp contact link.
-         */
+        // Enviar mensaje de atención general
         function contactGeneralWhatsApp() {
-            const message = `¡Hola! Me gustaría recibir asesoría sobre el catálogo de bicicletas de Velocita.`;
+            const cleanNumber = WHATSAPP_NUMBER.replace(/\D/g, '');
+            const message = `¡Hola *Bicisportjc*! Me gustaría recibir asesoría personalizada sobre el catálogo de bicicletas.`;
             const encodedMessage = encodeURIComponent(message);
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            const url = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
             window.open(url, '_blank');
         }
 
-        // Search Sync and Reset Utilities
+        // Sincronizar búsqueda móvil con la de escritorio
         function syncMobileSearch() {
             const val = document.getElementById('search-input-mobile').value;
             document.getElementById('search-input').value = val;
             filterBikes();
         }
 
+        // Restablecer todos los filtros
         function resetFilters() {
             document.getElementById('search-input').value = '';
             document.getElementById('search-input-mobile').value = '';
