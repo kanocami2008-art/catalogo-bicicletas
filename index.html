@@ -11,21 +11,20 @@
 
     <!-- CONFIGURACIÓN DE COLORES Y TEMA EN TAILWIND -->
     <script>
+      <script>
       tailwind.config = {
         darkMode: 'class',
         theme: {
           extend: {
             colors: {
-              // Paleta de colores de la marca
               brand: {
-                50: '#fffbe3',
+                50: '#fffbeb',
                 100: '#fef3c7',
-                400: '#fbbf24', // Amarillo cálido para detalles y acentos
-                500: '#f97316', // Naranja principal para botones
-                600: '#ea580c', // Naranja oscuro al pasar el mouse
-                700: '#c2410c',
+                400: '#facc15', // Amarillo brillante para íconos y textos
+                500: '#eab308', // Amarillo dorado principal para botones
+                600: '#ca8a04', // Amarillo oscuro al pasar el mouse
+                700: '#a16207',
               },
-              // Verde oficial de WhatsApp
               whatsapp: {
                 500: '#25D366',
                 600: '#128C7E',
@@ -44,6 +43,16 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         body {
+
+        /* Cambia esta variable o añade este estilo para forzar el amarillo de tu marca */
+  
+        .border-brand-yellow {
+        border-color: #facc15 !important;
+  }
+
+        .text-brand-yellow {
+        color: #facc15 !important;
+  }
             font-family: 'Inter', sans-serif;
             background-color: #090d16; /* Fondo Azul Oscuro Elegante */
             color: #f3f4f6;
