@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocita Bikes | Catálogo Oficial</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316', // Vibrant Orange Accent for Bikes
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
+                        whatsapp: {
+                            500: '#25D366',
+                            600: '#128C7E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+        }
+
+        .modal-blur {
+            backdrop-filter: blur(10px);
+        }
+
+        .bike-card:hover .bike-image {
+            transform: scale(1.06);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-slate-950 text-slate-100">
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-brand-600/30">
+                        <i class="fa-solid fa-person-biking text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-brand-500">
+                            VELOCITA
+                        </span>
+                        <span class="block text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Premium Bike Store</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="search-input" onkeyup="filterBikes()" placeholder="Buscar por modelo, marca o estilo..." 
+                            class="w-full bg-slate-900/90 border border-slate-800 rounded-full py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- WhatsApp General Contact Action -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="contactGeneralWhatsApp()" class="hidden sm:flex items-center space-x-2 px-4 py-2.5 rounded-full bg-whatsapp-500/10 hover:bg-whatsapp-500 text-whatsapp-500 hover:text-slate-950 border border-whatsapp-500/30 text-xs font-bold transition-all duration-300">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Atención Directa</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="pb-4 md:hidden">
+                <div class="relative w-full">
+                    <input type="text" id="search-input-mobile" onkeyup="syncMobileSearch()" placeholder="Buscar bicicleta..." 
+                        class="w-full bg-slate-900 border border-slate-800 rounded-full py-2 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-b border-slate-800/60 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center opacity-15"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
+            <div class="max-w-2xl space-y-4">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-500 text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-bolt text-xs"></i> Modelos 2026 Disponibles
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                    Encuentra Tu Bicicleta Ideal
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Explora nuestro catálogo exclusivo de bicicletas de Montaña, Ruta, Urbanas y Eléctricas. Consulta la disponibilidad o pide información directamente por WhatsApp con un solo clic.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4">
+                    <a href="#catalog-section" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm transition-all shadow-lg shadow-brand-600/30 flex items-center gap-2">
+                        <span>Ver Catálogo</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content & Catalog Section -->
+    <main id="catalog-section" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        
+        <!-- Filters & Sorting Controls Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800/80">
+            
+            <!-- Category Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar" id="category-pills">
+                <!-- Dynamic Category Buttons generated by JS -->
+            </div>
+
+            <!-- Sorting & Grid Toggles -->
+            <div class="flex items-center justify-between lg:justify-end gap-4 border-t lg:border-t-0 border-slate-800 pt-3 lg:pt-0">
+                <!-- Sorting Dropdown -->
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-slate-400 font-medium">Ordenar:</span>
+                    <select id="sort-select" onchange="filterBikes()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
+                        <option value="featured">Destacados</option>
+                        <option value="price-low">Precio: Menor a Mayor</option>
+                        <option value="price-high">Precio: Mayor a Menor</option>
+                        <option value="name">Nombre (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bikes Display Grid -->
+        <div id="bikes-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamic Bike Cards Rendered via JS -->
+        </div>
+
+        <!-- Empty State Message -->
+        <div id="empty-state" class="hidden text-center py-20 space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
+                <i class="fa-solid fa-bicycle text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-200">No encontramos resultados</h3>
+            <p class="text-sm text-slate-400 max-w-sm mx-auto">Intenta cambiar las palabras de búsqueda o selecciona otra categoría.</p>
+            <button onclick="resetFilters()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-brand-500 rounded-xl text-xs font-bold transition-all">
+                Restablecer Filtros
+            </button>
+        </div>
+    </main>
+
+    <!-- Detailed Technical QuickView Modal -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <!-- Backdrop -->
+        <div onclick="closeQuickView()" class="absolute inset-0 bg-slate-950/85 modal-blur"></div>
+        
+        <!-- Modal Card Container -->
+        <div class="relative bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-300 pointer-events-auto z-10 max-h-[90vh] overflow-y-auto">
+            <!-- Close Button -->
+            <button onclick="closeQuickView()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Dynamic Modal Content injected by JS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="quickview-content"></div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-10 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex items-center justify-center space-x-2 text-slate-400 font-bold">
+                <i class="fa-solid fa-person-biking text-brand-500"></i>
+                <span>VELOCITA BIKES</span>
+            </div>
+            <p>© 2026 Todos los derechos reservados. Catálogo interactivo de bicicletas.</p>
+        </div>
+    </footer>
+
+    <script>
+        /************************************************************************
+         * 1. CONFIGURACIÓN DEL NEGOCIO (FÁCIL DE EDITAR EN GITHUB)
+         * 
+         * Simplemente cambia el número a continuación por tu número real de WhatsApp.
+         * Incluye el código del país sin el signo "+".
+         * Ejemplo para Colombia: "573001234567"
+         * Ejemplo para México:   "521551234567"
+         * Ejemplo para España:   "34600000000"
+         ************************************************************************/
+        const WHATSAPP_NUMBER = "573001234567";
+
+        /************************************************************************
+         * 2. BASE DE DATOS DE BICICLETAS (FÁCIL DE EDITAR/AGREGAR PRODUCTOS)
+         * 
+         * Puedes agregar más bicicletas copiando un bloque entero entre llaves { ... }
+         ************************************************************************/
+        const BIKES_DATABASE = [
+            {
+                id: 'bike_1',
+                name: 'Specialized Rockhopper Comp 29',
+                category: 'Montaña',
+                price: 850.00,
+                badge: 'Más Popular',
+                image: 'https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=1000&q=80',
+                description: 'Diseñada para conquistar senderos con máxima tracción. Marco de aluminio A1 superligero y transmisión monoplato de amplio rango.',
+                specs: {
+                    frame: 'Aluminio A1 Premium',
+                    suspension: 'SR Suntour XCM 29 (100mm)',
+                    brakes: 'Disco Hidráulico Shimano MT200',
+                    gears: 'MicroSHIFT Advent 1x9 velocidades',
+                    wheels: 'Alloy 29" Doble Pared'
+                }
+            },
+            {
+                id: 'bike_2',
+                name: 'Trek Domane AL 3 Disc',
+                category: 'Ruta',
+                price: 1250.00,
+                badge: 'Destacada',
+                image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1000&q=80',
+                description: 'Bicicleta de ruta suave, cómoda y veloz. Geometría de resistencia ideal para largas jornadas sobre el pavimento.',
+                specs: {
+                    frame: 'Aluminio Alpha 100 Series',
+                    suspension: 'Horquilla Rígida de Carbono Domane',
+                    brakes: 'Disco Mecánico Shimano Sora',
+                    gears: 'Shimano Sora 2x9 (18 vel)',
+                    wheels: 'Bontrager Affinity Disc'
+                }
+            },
+            {
+                id: 'bike_3',
+                name: 'Cannondale Quick CX 2',
+                category: 'Urbana',
+                price: 720.00,
+                badge: null,
+                image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=1000&q=80',
+                description: 'La compañera perfecta para la ciudad y caminos mixtos. Postura erguida, suspensión delantera y componentes duraderos.',
+                specs: {
+                    frame: 'SmartForm C3 Alloy',
+                    suspension: 'SR Suntour NEX (63mm)',
+                    brakes: 'Disco Hidráulico Tektro',
+                    gears: 'microSHIFT 2x8 velocidades',
+                    wheels: 'Cannondale Disc 700c'
+                }
+            },
+            {
+                id: 'bike_4',
+                name: 'Orbea Gain D50 E-Bike',
+                category: 'Eléctrica',
+                price: 2400.00,
+                badge: 'Nuevo Modelo',
+                image: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=1000&q=80',
+                description: 'Bicicleta asistida ultraligera de diseño integrado. Diseñada para aumentar tus recorridos sin perder la sensación del pedaleo tradicional.',
+                specs: {
+                    frame: 'Aluminio Orbea Gain Hydro',
+                    suspension: 'Horquilla Carbono Orbea',
+                    brakes: 'Disco Hidráulico Shimano Claris',
+                    gears: 'Shimano Claris 2x8 / Motor Mahle Ebikemotion X35',
+                    wheels: 'Ready GR Tubeless'
+                }
+            },
+            {
+                id: 'bike_5',
+                name: 'Scott Aspect 940 Dark Grey',
+                category: 'Montaña',
+                price: 690.00,
+                badge: null,
+                image: 'https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=1000&q=80',
+                description: 'Rígida de montaña eficiente y económica. Cuenta con bloqueo de suspensión y frenos de disco de gran potencia.',
+                specs: {
+                    frame: 'Aspect 900 series Alloy',
+                    suspension: 'Suntour XCR32-RL-R (100mm)',
+                    brakes: 'Disco Hidráulico Shimano MT200',
+                    gears: 'Shimano Alivio 18 velocidades',
+                    wheels: 'Syncros X-20 Disc 29"'
+                }
+            },
+            {
+                id: 'bike_6',
+                name: 'Giant Contend AR 1',
+                category: 'Ruta',
+                price: 1650.00,
+                badge: 'Alta Gama',
+                image: 'https://images.unsplash.com/photo-1501147830916-ce44a63798d6?auto=format&fit=crop&w=1000&q=80',
+                description: 'Versatilidad para cualquier carretera. Capacidad para cubiertas más anchas y tija de sillín D-Fuse que absorbe las vibraciones.',
+                specs: {
+                    frame: 'Aluxx-Grade Aluminium',
+                    suspension: 'Carbono Advanced-Grade Full Composite',
+                    brakes: 'Disco Hidráulico Shimano 105',
+                    gears: 'Shimano 105 2x11 (22 vel)',
+                    wheels: 'Giant S-R2 Disc wheelset'
+                }
+            }
+        ];
+
+        // Global State Variables
+        let currentCategory = 'Todos';
+
+        // Initialize application on window load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryPills();
+            filterBikes();
+        });
+
+        function renderCategoryPills() {
+            const categories = ['Todos', 'Montaña', 'Ruta', 'Urbana', 'Eléctrica'];
+            const container = document.getElementById('category-pills');
+            
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" 
+                    class="px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 ${
+                        currentCategory === cat 
+                        ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' 
+                        : 'bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/50'
+                    }">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            renderCategoryPills();
+            filterBikes();
+        }
+
+        function filterBikes() {
+            const searchQuery = (document.getElementById('search-input').value || document.getElementById('search-input-mobile').value || '').toLowerCase();
+            const sortBy = document.getElementById('sort-select').value;
+
+            let filtered = BIKES_DATABASE.filter(bike => {
+                const matchesCategory = currentCategory === 'Todos' || bike.category === currentCategory;
+                const matchesSearch = bike.name.toLowerCase().includes(searchQuery) || 
+                                      bike.description.toLowerCase().includes(searchQuery) ||
+                                      bike.category.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            // Sorting logic
+            if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
+            if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
+            if (sortBy === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+            renderBikes(filtered);
+        }
+
+        function renderBikes(items) {
+            const container = document.getElementById('bikes-container');
+            const emptyState = document.getElementById('empty-state');
+
+            if (items.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            container.innerHTML = items.map(bike => `
+                <div class="bike-card glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:border-brand-500/40 hover:shadow-xl hover:shadow-brand-500/5">
+                    
+                    <!-- Bike Image Header -->
+                    <div class="relative overflow-hidden aspect-[4/3] bg-slate-900">
+                        <img src="${bike.image}" alt="${bike.name}" class="bike-image w-full h-full object-cover transition-transform duration-500">
+                        
+                        ${bike.badge ? `
+                            <span class="absolute top-3.5 left-3.5 bg-brand-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider shadow-md">
+                                ${bike.badge}
+                            </span>
+                        ` : ''}
+
+                        <!-- Quick View Eye Button -->
+                        <button onclick="openQuickView('${bike.id}')" title="Ver Ficha Técnica" class="absolute bottom-3.5 right-3.5 w-10 h-10 rounded-full bg-slate-950/80 text-white opacity-90 sm:opacity-0 group-hover:opacity-100 transition-all hover:bg-brand-600 flex items-center justify-center">
+                            <i class="fa-solid fa-eye text-sm"></i>
+                        </button>
+                    </div>
+
+                    <!-- Bike Info Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] uppercase font-bold text-brand-500 tracking-wider">${bike.category}</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors line-clamp-1">${bike.name}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${bike.description}</p>
+                        </div>
+
+                        <!-- Highlights Specs -->
+                        <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-[11px] text-slate-300">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-brand-500 w-4"></i>
+                                <span class="truncate"><strong>Marco:</strong> ${bike.specs.frame}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-gear text-brand-500 w-4"></i>
+                                <span class="truncate"><strong>Cambios:</strong> ${bike.specs.gears}</span>
+                            </div>
+                        </div>
+
+                        <!-- Price and WhatsApp Direct Action -->
+                        <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block font-medium">Precio estimado</span>
+                                <span class="text-lg font-black font-mono text-white">$${bike.price.toFixed(2)}</span>
+                            </div>
+
+                            <!-- WhatsApp Contact Button -->
+                            <button onclick="contactWhatsApp('${bike.name}')" class="px-4 py-2.5 bg-whatsapp-500 hover:bg-whatsapp-600 text-slate-950 hover:text-white rounded-xl text-xs font-bold transition-all duration-300 flex items-center gap-2 shadow-lg shadow-whatsapp-500/20">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                                <span>Consultar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openQuickView(bikeId) {
+            const bike = BIKES_DATABASE.find(b => b.id === bikeId);
+            if (!bike) return;
+
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+                        <img src="${bike.image}" alt="${bike.name}" class="w-full h-full object-cover">
+                    </div>
+                    <span class="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-500 text-xs font-bold uppercase tracking-wider">
+                        Bicicleta de ${bike.category}
+                    </span>
+                </div>
+
+                <div class="flex flex-col justify-between space-y-6">
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-black text-white">${bike.name}</h2>
+                        <p class="text-2xl font-black font-mono text-brand-500 mt-2">$${bike.price.toFixed(2)} USD</p>
+                        <p class="text-xs text-slate-300 mt-3 leading-relaxed">${bike.description}</p>
+                    </div>
+
+                    <!-- Detailed Technical Specifications Sheet -->
+                    <div class="space-y-2.5">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Ficha Técnica Destacada</h4>
+                        <div class="bg-slate-950/80 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
+                            <div class="flex justify-between border-b border-slate-800/60 pb-1.5">
+                                <span class="text-slate-400">Marco:</span>
+                                <span class="text-slate-200 font-semibold text-right">${bike.specs.frame}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/60 pb-1.5">
+                                <span class="text-slate-400">Suspensión:</span>
+                                <span class="text-slate-200 font-semibold text-right">${bike.specs.suspension}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/60 pb-1.5">
+                                <span class="text-slate-400">Frenos:</span>
+                                <span class="text-slate-200 font-semibold text-right">${bike.specs.brakes}</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/60 pb-1.5">
+                                <span class="text-slate-400">Transmisión:</span>
+                                <span class="text-slate-200 font-semibold text-right">${bike.specs.gears}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Ruedas:</span>
+                                <span class="text-slate-200 font-semibold text-right">${bike.specs.wheels}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Action inside Modal -->
+                    <button onclick="contactWhatsApp('${bike.name}')" class="w-full py-3.5 bg-whatsapp-500 hover:bg-whatsapp-600 text-slate-950 hover:text-white font-bold rounded-xl text-sm transition-all duration-300 shadow-lg shadow-whatsapp-500/20 flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>Pedir Información en WhatsApp</span>
+                    </button>
+                </div>
+            `;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.transform').classList.replace('scale-100', 'scale-95');
+        }
+
+        /**
+         * Generates WhatsApp link with pre-filled message about a specific bike.
+         */
+        function contactWhatsApp(bikeName) {
+            const message = `¡Hola! Estoy interesado en obtener más información y consultar disponibilidad sobre la bicicleta *${bikeName}*.`;
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+
+        /**
+         * Generates general WhatsApp contact link.
+         */
+        function contactGeneralWhatsApp() {
+            const message = `¡Hola! Me gustaría recibir asesoría sobre el catálogo de bicicletas de Velocita.`;
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+
+        // Search Sync and Reset Utilities
+        function syncMobileSearch() {
+            const val = document.getElementById('search-input-mobile').value;
+            document.getElementById('search-input').value = val;
+            filterBikes();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('search-input-mobile').value = '';
+            currentCategory = 'Todos';
+            document.getElementById('sort-select').value = 'featured';
+            renderCategoryPills();
+            filterBikes();
+        }
+    </script>
+</body>
+</html>
