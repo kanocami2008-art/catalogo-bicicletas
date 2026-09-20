@@ -7,28 +7,30 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              yellow: '#fbbf24', // Amarillo cálido para la marca y acentos
-              orange: '#f97316', // Naranja deportivo para botones
-              'orange-hover': '#ea580c',
-            },
-            dark: {
-              bg: '#090d16',   // Azul oscuro profundo de fondo
-              card: '#111827', // Azul noche para las tarjetas
-            },
-            whatsapp: {
-              500: '#25D366',
-              600: '#128C7E',
-            }
+        <script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          // Reasignamos las clases 'brand' para que los botones y detalles recuperen su color
+          brand: {
+            50: '#fffbe3',
+            100: '#fef3c7',
+            400: '#fbbf24', // Amarillo cálido para íconos/detalles
+            500: '#f97316', // Naranja principal para botones
+            600: '#ea580c', // Naranja oscuro al pasar el mouse
+            700: '#c2410c',
+          },
+          whatsapp: {
+            500: '#25D366',
+            600: '#128C7E',
           }
         }
       }
     }
+  }
+</script>
     </script>
     <!-- Font Awesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
